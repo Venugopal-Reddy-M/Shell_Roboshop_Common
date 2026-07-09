@@ -33,6 +33,7 @@ VALIDATE(){
         echo -e "$(date "+%Y-%m-%d %H:%M:%S") | $2...$G SUCCESS $N" | tee -a $LOGS_FILE
     fi
 }
+
 nodejs_setup(){
     dnf module disable nodejs -y &>>$LOGS_FILE
     VALIDATE $? "diseable Nodejs ...."
@@ -47,12 +48,13 @@ nodejs_setup(){
        echo -e  "Already installing...$Y SKIPING $N" &>>$LOGS_FILE
     fi
 
-    cd /app &>>LOGS_FILE
+    cd /app &>>$LOGS_FILE
     VALIDATE $? "Moving to app Directory..." 
 
     npm install  &>>$LOGS_FILE
     VALIDATE $? "Installing Dependencies.."
 }
+
  app_setup(){
     id roboshop &>>LOGS_FILE
   if [ $? -ne 0 ]; then
@@ -79,7 +81,7 @@ nodejs_setup(){
  }
 
 systemd_setup(){
-    cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>>LOGS_FILE
+    cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>>$LOGS_FILE
     VALIDATE $? "Created systemctl service"
 
     systemctl daemon-reload
