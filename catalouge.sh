@@ -25,5 +25,4 @@ else
   echo "PRODUCTS ALREADY LOADED ..."
 fi
 
-app_restart
 print_total_time
