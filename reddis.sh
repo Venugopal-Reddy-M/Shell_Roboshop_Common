@@ -5,19 +5,11 @@ source ./common.sh
 app_name=reddis
 check_root
 
-if [ $? -ne 0 ]; then
-   dnf module disable redis -y &>>$LOGS_FILE
-   VALIDATE $? "Disable redis..."
-else 
- echo "disable redis already"
-fi
+dnf module disable redis -y &>>$LOGS_FILE
+VALIDATE $? "Disable redis..."
 
-if [ $? -ne 0 ]; then
-  dnf module enable redis:7 -y &>>$LOGS_FILE
-  VALIDATE $? "Enable redis..."
-else
-  echo "Enable redis...alredy"
-fi  
+dnf module enable redis:7 -y &>>$LOGS_FILE
+VALIDATE $? "Enable redis..."
 
 dnf install redis -y 
 VALIDATE $? "Installing redis..." &>>$LOGS_FILE
