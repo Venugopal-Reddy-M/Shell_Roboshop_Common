@@ -22,7 +22,7 @@ if [ $INDEX -le 0 ]; then
     mongosh --host $MONGODB_HOST </app/db/master-data.js
     VALIDATE $? "LOADING PRODUCTS"
 else
-  echo "PRODUCTS ALREADY LOADED ..."
+  echo -e "$(date "+%Y-%m-%d %H:%M:%S") | PRODUCTS ALREADY LOADED ..."
 fi
 
 print_total_time

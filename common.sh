@@ -37,34 +37,30 @@ VALIDATE(){
 }
 
 nodejs_setup(){
-    mkdir -p /app &>>LOGS_FILE
-    VALIDATE $? "Create app directory"
+    dnf module disable nodejs -y &>>$LOGS_FILE
+    VALIDATE $? "diseable Nodejs ...."
 
-    curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>LOGS_FILE
-    VALIDATE $? "Copy cart code"
+    dnf module enable nodejs:20 -y &>>$LOGS_FILE
+    VALIDATE $? "enable nodejs-20 ....."
 
-    cd /app  &>>LOGS_FILE
-    VALIDATE $? "Moving to app Directory..." 
-
-    #this command remove exiting code in app dir
-    rm -rf /app/* &>>LOGS_FILE
-    VALIDATE $? "Removeing Existing code..."
-
-    unzip /tmp/cart.zip &>>LOGS_FILE
-    VALIDATE $? "unzip cart code" 
-
-    npm install &>>LOGS_FILE
+    if [ $? -ne 0 ]; then
+       dnf install nodejs -y &>>$LOGS_FILE
+       VALIDATE $? "installing Nodejs ...." 
+    else 
+       echo -e  "Already installin...$Y SKIPING $N"
+    fi
+    npm install &>>$LOGS_FILE
     VALIDATE $? "Installing Dependencies..."
 }
 
  app_setup(){
-    id roboshop &>>LOGS_FILE
-  if [ $? -ne 0 ]; then
-     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
-     VALIDATE $? "Add system user..."
-   else
-     echo -e "Roboshop user already exit...$Y SKIPPING $N" &>>$LOGS_FILE
-  fi
+    id roboshop &>>$LOGS_FILE
+    if [ $? -ne 0 ]; then
+        useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+        VALIDATE $? "Add system user..."
+    else
+        echo -e "Roboshop user already exit...$Y SKIPPING $N" &>>$LOGS_FILE
+    fi
 
     mkdir -p /app
     VALIDATE $? "create app directory"
@@ -92,7 +88,7 @@ systemd_setup(){
     VALIDATE $? "Start AND Enabling $app_name.."
 }
 app_restart(){
-    systemctl restart $app_name &>>LOGS_FILE
+    systemctl restart $app_name &>>$LOGS_FILE
     VALIDATE $? "Restart $app_name"
 }
 
