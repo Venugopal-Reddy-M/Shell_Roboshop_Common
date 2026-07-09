@@ -47,6 +47,9 @@ nodejs_setup(){
        echo -e  "Already installing...$Y SKIPING $N" &>>$LOGS_FILE
     fi
 
+    cd /app &>>LOGS_FILE
+    VALIDATE $? "Moving to app Directory..." 
+
     npm install  &>>$LOGS_FILE
     VALIDATE $? "Installing Dependencies.."
 }
