@@ -2,6 +2,7 @@
 
 source ./common.sh
 
+app_name=mongo
 check_root
 
 
