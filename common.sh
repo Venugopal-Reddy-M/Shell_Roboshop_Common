@@ -44,10 +44,10 @@ nodejs_setup(){
        dnf install nodejs -y &>>$LOGS_FILE
        VALIDATE $? "installing Nodejs ...." 
     else 
-       echo -e  "Already installin...$Y SKIPING $N"
+       echo -e  "Already installin...$Y SKIPING $N" &>>$LOGS_FILE
     fi
 
-    npm install &>>LOGS_FILE
+    npm install &>>$LOGS_FILE
     VALIDATE $? "Installing Dependencies.."
 }
  app_setup(){
