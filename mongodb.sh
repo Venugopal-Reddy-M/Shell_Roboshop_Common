@@ -3,6 +3,7 @@
 source ./common.sh
 
 check_root
+print_total_time()
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGS_FILE
 VALIDATE $? "copying mongo repo"
@@ -19,4 +20,3 @@ VALIDATE $? "Allowing remote"
 systemctl start mongod &>>$LOGS_FILE
 VALIDATE $? "restart" 
 
-print_total_time()
