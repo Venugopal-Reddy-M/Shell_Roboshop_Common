@@ -6,8 +6,8 @@ app_name=catalogue
 check_root
 app_setup
 nodejs_setup
-npm install &>>$LOGS_FILE
-VALIDATE $? "Installing Dependencies.."
+# npm install &>>$LOGS_FILE
+# VALIDATE $? "Installing Dependencies.."
 systemd_setup
 
 
