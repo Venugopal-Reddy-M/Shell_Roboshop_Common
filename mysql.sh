@@ -12,4 +12,4 @@ VALIDATE $? "Install, enable and start mysql..."
 mysql_secure_installation --set-root-pass RoboShop@1 &>>LOGS_FILE
 VALIDATE $? "Setup root password"
 
-print_total_time
+print_total_time 
