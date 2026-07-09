@@ -53,8 +53,8 @@ nodejs_setup(){
     cd /app &>>$LOGS_FILE
     VALIDATE $? "Moving to app Directory..." 
 
-    npm install  &>>$LOGS_FILE
-    VALIDATE $? "Installing Dependencies.."
+    # npm install  &>>$LOGS_FILE
+    # VALIDATE $? "Installing Dependencies.."
 }
 
  app_setup(){
