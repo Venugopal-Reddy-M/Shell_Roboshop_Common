@@ -11,7 +11,7 @@ N="\e[0m"
 START_TIME=$(date +%s)
 mkdir -p $LOGS_FOLDER 
 
-echo -e "$(date "+%Y+m-%d %H:%M:%S") | script started executing at: $(date)" | tee -a $LOGS_FILE
+echo -e "$(date "+%Y-%m-%d %H:%M:%S") | script started executing at: $(date)" | tee -a $LOGS_FILE
 
 check_root(){
     if [ $USERID -ne 0 ]; then
