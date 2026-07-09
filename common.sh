@@ -43,12 +43,9 @@ nodejs_setup(){
     dnf module enable nodejs:20 -y &>>$LOGS_FILE
     VALIDATE $? "enable nodejs-20 ....."
 
-    if [ $? -ne 0 ]; then
-       dnf install nodejs -y &>>$LOGS_FILE
-       VALIDATE $? "installing Nodejs ...." 
-    else 
-       echo -e  "Already installin...$Y SKIPING $N"
-    fi
+    dnf install nodejs -y &>>$LOGS_FILE
+    VALIDATE $? "installing Nodejs ...." 
+    
     npm install &>>$LOGS_FILE
     VALIDATE $? "Installing Dependencies..."
 }
