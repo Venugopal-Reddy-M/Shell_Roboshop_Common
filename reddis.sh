@@ -31,4 +31,4 @@ systemctl enable redis
 systemctl start redis 
 VALIDATE $? "enable and start.... "
 
-print_total_time
+print_total_time 
