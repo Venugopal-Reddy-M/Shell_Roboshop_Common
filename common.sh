@@ -44,10 +44,10 @@ nodejs_setup(){
        dnf install nodejs -y &>>$LOGS_FILE
        VALIDATE $? "installing Nodejs ...." 
     else 
-       echo -e  "Already installin...$Y SKIPING $N" &>>$LOGS_FILE
+       echo -e  "Already installing...$Y SKIPING $N" &>>$LOGS_FILE
     fi
 
-    npm install &>>$LOGS_FILE
+    npm install  &>>$LOGS_FILE
     VALIDATE $? "Installing Dependencies.."
 }
  app_setup(){
@@ -56,7 +56,7 @@ nodejs_setup(){
      useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
      VALIDATE $? "Add system user..."
    else
-     echo -e "Roboshop user already exit...$Y SKIPPING $N"
+     echo -e "Roboshop user already exit...$Y SKIPPING $N" &>>$LOGS_FILE
   fi
 
     mkdir -p /app
