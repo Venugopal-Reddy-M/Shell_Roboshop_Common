@@ -60,7 +60,7 @@ nodejs_setup(){
         echo -e "Roboshop user already exit...$Y SKIPPING $N" &>>$LOGS_FILE
     fi
 
-    mkdir -p /app
+    mkdir -p /app &>>$LOGS_FILE
     VALIDATE $? "create app directory"
 
     curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip &>>$LOGS_FILE
@@ -69,7 +69,7 @@ nodejs_setup(){
     cd /app &>>LOGS_FILE
     VALIDATE $? "Moving to app Directory..." 
 
-    rm -rf /app/*
+    rm -rf /app/* &>>$LOGS_FILE
     VALIDATE $? "Removeing Existing code..."
 
     unzip /tmp/$app_name.zip &>>LOGS_FILE
@@ -82,8 +82,8 @@ systemd_setup(){
     VALIDATE $? "Created systemctl service"
 
     systemctl daemon-reload
-    systemctl enable $app_name 
-    systemctl start $app_name
+    systemctl enable $app_name &>>$LOGS_FILE
+    systemctl start $app_name &>>$LOGS_FILE
     VALIDATE $? "Start AND Enabling $app_name.."
 }
 
