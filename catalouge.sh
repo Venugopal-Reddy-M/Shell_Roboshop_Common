@@ -14,6 +14,7 @@ cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo  &>>$LOGS_FILE
 dnf install mongodb-mongosh -y &>>$LOGS_FILE
 VALIDATE $? "MongoDB install"
 
+#mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOGS_FILE
 mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOGS_FILE
 VALIDATE $? "master data loaded..."
 
