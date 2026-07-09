@@ -25,8 +25,6 @@ check_root(){
     fi
 }
 
-
-
 VALIDATE(){
     if [ $1 -ne 0 ]; then
         echo -e "$(date "+%Y-%m-%d %H:%M:%S") | $2....$R FAILUR $N" | tee -a $LOGS_FILE
@@ -36,6 +34,7 @@ VALIDATE(){
     fi
 }
 
+#nodejs configure
 nodejs_setup(){
     dnf module disable nodejs -y &>>$LOGS_FILE
     VALIDATE $? "diseable Nodejs ...."
@@ -50,6 +49,8 @@ nodejs_setup(){
     VALIDATE $? "Installing Dependencies..."
 }
 
+
+#App coffigure
  app_setup(){
     id roboshop &>>$LOGS_FILE
     if [ $? -ne 0 ]; then
@@ -74,8 +75,9 @@ nodejs_setup(){
     unzip /tmp/$app_name.zip &>>LOGS_FILE
     VALIDATE $? "unzip $app_name the code..."
  }
-
+#systemd_confic
 systemd_setup(){
+
     cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>>$LOGS_FILE
     VALIDATE $? "Created systemctl service"
 
@@ -84,11 +86,14 @@ systemd_setup(){
     systemctl start $app_name
     VALIDATE $? "Start AND Enabling $app_name.."
 }
+
+#App restart
 app_restart(){
     systemctl restart $app_name &>>$LOGS_FILE
     VALIDATE $? "Restart $app_name"
 }
 
+#Total_time
  print_total_time(){
    END_TIME=$(date +%s)
    TOTAL_TIME=$(( $END_TIME - $START_TIME ))
