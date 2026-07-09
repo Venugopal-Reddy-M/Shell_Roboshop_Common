@@ -3,7 +3,7 @@
 source ./common.sh
 
 check_root
-print_total_time()
+print_total_time
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGS_FILE
 VALIDATE $? "copying mongo repo"
