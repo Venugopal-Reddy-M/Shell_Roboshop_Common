@@ -10,7 +10,7 @@ systemd_setup
 
 
 # Loading data into mongodb
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo 
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo  &>>LOGS_FILE
 dnf install mongodb-mongosh -y &>>LOGS_FILE
 VALIDATE $? "MongoDB install"
 
