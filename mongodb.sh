@@ -18,3 +18,5 @@ VALIDATE $? "Allowing remote"
 
 systemctl start mongod &>>$LOGS_FILE
 VALIDATE $? "restart" 
+
+print_total_time()
