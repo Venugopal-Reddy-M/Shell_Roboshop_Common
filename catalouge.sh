@@ -10,18 +10,20 @@ systemd_setup
 
 
 # Loading data into mongodb
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo  &>>LOGS_FILE
-dnf install mongodb-mongosh -y &>>LOGS_FILE
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo  &>>$LOGS_FILE
+dnf install mongodb-mongosh -y &>>$LOGS_FILE
 VALIDATE $? "MongoDB install"
 
-mongosh --host $MONGODB_HOST </app/db/master-data.js &>>LOGS_FILE
+mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOGS_FILE
 VALIDATE $? "master data loaded..."
+
+
 
 INDEX=$(mongosh --host $MONGODB_HOST --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 
 if [ $INDEX -le 0 ]; then
     mongosh --host $MONGODB_HOST </app/db/master-data.js
-    VALIDATE $? "LOADING PRODUCTS"
+    VALIDATE $? "LOADING PRODUCTS" &>>$LOGS_FILE
 else
   echo -e "$(date "+%Y-%m-%d %H:%M:%S") | PRODUCTS ALREADY LOADED ..."
 fi

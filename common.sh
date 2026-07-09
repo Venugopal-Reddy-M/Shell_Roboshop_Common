@@ -11,7 +11,8 @@ N="\e[0m"
 SCRIPT_DIR=$PWD
 
 START_TIME=$(date +%s)
-MONGODB_HOST=mongodb.solohunting.online
+
+MONGODB_HOST="mongodb.solohunting.online"
 
 
 mkdir -p $LOGS_FOLDER 
