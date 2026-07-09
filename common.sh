@@ -37,24 +37,24 @@ VALIDATE(){
 }
 
 nodejs_setup(){
-    dnf module disable nodejs -y &>>$LOGS_FILE
-    VALIDATE $? "diseable Nodejs ...."
+    mkdir -p /app &>>LOGS_FILE
+    VALIDATE $? "Create app directory"
 
-    dnf module enable nodejs:20 -y &>>$LOGS_FILE
-    VALIDATE $? "enable nodejs-20 ....."
+    curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>LOGS_FILE
+    VALIDATE $? "Copy cart code"
 
-    if [ $? -ne 0 ]; then
-       dnf install nodejs -y &>>$LOGS_FILE
-       VALIDATE $? "installing Nodejs ...." 
-    else 
-       echo -e  "Already installing...$Y SKIPING $N" &>>$LOGS_FILE
-    fi
-
-    cd /app &>>$LOGS_FILE
+    cd /app  &>>LOGS_FILE
     VALIDATE $? "Moving to app Directory..." 
 
-    npm install  &>>$LOGS_FILE
-    VALIDATE $? "Installing Dependencies.."
+    #this command remove exiting code in app dir
+    rm -rf /app/* &>>LOGS_FILE
+    VALIDATE $? "Removeing Existing code..."
+
+    unzip /tmp/cart.zip &>>LOGS_FILE
+    VALIDATE $? "unzip cart code" 
+
+    npm install &>>LOGS_FILE
+    VALIDATE $? "Installing Dependencies..."
 }
 
  app_setup(){
