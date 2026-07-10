@@ -3,14 +3,10 @@
 source ./common.sh
 
 app_name=shipping
-MYSQL_HOST="mysql.solohunting.online"
+
 check_root
-
-
-dnf install maven -y &>>$LOGS_FILE
-VALIDATE $? "install maven...."
-
 app_setup
+java_setup
 systemd_setup
 
 
@@ -23,5 +19,4 @@ mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql
 
 
 app_restart
-
 print_total_time

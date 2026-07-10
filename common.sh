@@ -13,6 +13,7 @@ SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
 
 MONGODB_HOST="mongo.solohunting.online"
+MYSQL_HOST="mysql.solohunting.online"
 
 
 mkdir -p $LOGS_FOLDER 
@@ -99,4 +100,17 @@ app_restart(){
    END_TIME=$(date +%s)
    TOTAL_TIME=$(( $END_TIME - $START_TIME ))
    echo -e "$(date "+%Y-%m-%d %H:%M:%S") | Script execute in: $G $TOTAL_TIME in seconds $N" | tee -a $LOGS_FILE
+}
+
+java_setup(){
+    dnf install mysql -y &>>$LOGS_FILE
+    VALIDATE $? "install mysql...."
+   
+    cd /app &>>$LOGS_FILE
+    mvn clean package &>>$LOGS_FILE
+    VALIDATE $? "Installg and Building $app_name"
+
+
+    mv target/$app_name-1.0.jar $app_name.jar &>>$LOGS_FILE
+    VALIDATE $? "Moving and Renaming $app_name" 
 }
