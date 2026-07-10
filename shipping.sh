@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./common.sh
+
 app_name=shipping
 MYSQL_HOST="mysql.solohunting.online"
 check_root
