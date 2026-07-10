@@ -114,3 +114,13 @@ java_setup(){
     mv target/$app_name-1.0.jar $app_name.jar &>>$LOGS_FILE
     VALIDATE $? "Moving and Renaming $app_name" 
 }
+
+python_setup(){ 
+     
+    dnf install python3 gcc python3-devel -y &>>$LOGS_FILE
+    VALIDATE $? "Install python...."
+
+    cd /app 
+    pip3 install -r requirements.txt &>>$LOGS_FILE
+    VALIDATE $? "install pip..."
+}
