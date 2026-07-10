@@ -23,3 +23,5 @@ mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql
 
 
 app_restart
+
+print_total_time
