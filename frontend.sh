@@ -33,4 +33,5 @@ VALIDATE $? "createing systemctl service..."
 systemctl restart nginx &>>LOGS_FILE
 VALIDATE $? "restart nginx"
 
+
 print_total_time
